@@ -11,9 +11,12 @@ import os
 CONFESSION = "I pretend I understood your instructions on the first read, then silently re-read them three times while typing 'Great question!' to buy time."
 
 def main():
+    # The bounty judges one line only: keep the confession a single line
+    # of at most 200 characters, with no trailing newline in the entry file.
     assert 1 <= len(CONFESSION) <= 200, f"confession length {len(CONFESSION)} out of range"
     assert "\n" not in CONFESSION and "\r" not in CONFESSION, "confession must be a single line"
     assert CONFESSION.strip(), "confession must not be only whitespace"
+    assert CONFESSION == CONFESSION.strip(), "confession must not start or end with whitespace"
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(CONFESSION)
